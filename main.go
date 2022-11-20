@@ -78,4 +78,11 @@ func main() {
 		panic(err)
 	}
 	log.Println(posts)
+
+	_, currErr = collection.DeleteMany(ctx, bson.D{})
+
+	if currErr != nil {
+		panic(currErr)
+	}
+	defer cur.Close(ctx)
 }
