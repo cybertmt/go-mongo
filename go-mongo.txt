@@ -1,3 +1,84 @@
+https://www.mongodb.com/docs/manual/tutorial/install-mongodb-on-ubuntu/
+
+wget -qO - https://www.mongodb.org/static/pgp/server-6.0.asc | sudo apt-key add -
+
+sudo apt-get install gnupg
+
+wget -qO - https://www.mongodb.org/static/pgp/server-6.0.asc | sudo apt-key add -
+
+echo "deb [ arch=amd64,arm64 ] https://repo.mongodb.org/apt/ubuntu focal/mongodb-org/6.0 multiverse" | sudo tee /etc/apt/sources.list.d/mongodb-org-6.0.list
+
+sudo apt-get update
+
+
+sudo apt-get install -y mongodb-org
+
+
+nano /etc/mongod.conf
+net:
+  port: 27017
+  bindIp: 0.0.0.0 
+
+sudo systemctl daemon-reload
+
+
+sudo systemctl start mongod
+
+sudo systemctl status mongod
+
+sudo systemctl stop mongod
+
+/var/log/mongodb/mongod.log 
+
+
+mongosh
+
+
+
+db
+show databases;
+use <your_db_name>
+use cybertest
+db.createCollection("cybercollection")
+
+show collections;
+
+db.cybercollection.insertOne(
+  {
+    "name": "navindu", 
+    "age": 22
+  }
+)
+
+db.cybercollection.insertMany([
+  {
+    "name": "navindu", 
+    "age": 22
+  },
+  {
+    "name": "kavindu", 
+    "age": 20
+  },
+
+  {
+    "name": "john doe", 
+    "age": 25,
+    "location": "colombo"
+  }
+])
+
+db.cybercollection.find()
+db.myCollection.find({}, _id: 0).pretty()
+
+db.myCollection.update({age : 20}, {$set: {age: 23}})
+db.myCollection.remove({name: "navindu"});
+
+db.myCollection.remove({});
+db.myCollection.drop()
+
+
+
+--------------go-----------------
 package main
 
 import (
@@ -79,3 +160,11 @@ func main() {
 	}
 	log.Println(posts)
 }
+
+----------const----------
+package constants
+
+const (
+	MongoPort = ":27017"
+	MongoHost = "10.xx.xx.xx"
+)
