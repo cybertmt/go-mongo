@@ -34,7 +34,7 @@ func main() {
 	if err != nil {
 		log.Fatal(err)
 	}
-	log.Println(databases)
+	log.Println("Show databases: ", databases)
 
 	/*
 	   Define my document struct
@@ -62,7 +62,7 @@ func main() {
 	if insertErr != nil {
 		log.Fatal(insertErr)
 	}
-	log.Println(res)
+	log.Println("Items inserted: ", res)
 	/*
 	   Iterate a cursor and print it
 	*/
@@ -77,12 +77,12 @@ func main() {
 	if err = cur.All(ctx, &posts); err != nil {
 		panic(err)
 	}
-	log.Println(posts)
+	log.Println("Got items: ", posts)
 
-	_, currErr = collection.DeleteMany(ctx, bson.D{})
+	del, currErr := collection.DeleteMany(ctx, bson.D{})
 
 	if currErr != nil {
 		panic(currErr)
 	}
-	defer cur.Close(ctx)
+	log.Print("Items deleted: ", del)
 }
